@@ -41,7 +41,7 @@ void main (void)
         }
 
 
-    }while (lower < upper );
+    }while (lower <= upper );
     printf("=========================================\n");
    if (pos == -1)
    printf (" %d is not found  \n" ,key);
