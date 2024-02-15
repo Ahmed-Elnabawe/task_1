@@ -3,7 +3,7 @@ void main (void)
 {
     printf(" ======================== binary search algorithm ======================== \n ");
     int n ;
-    printf ("enter the legnth of lest ");
+    printf ("enter the legnth of list ");
     scanf("%d",&n);
     int arr [n];
     int i ;
@@ -22,6 +22,7 @@ void main (void)
     lower=0;
     upper = n-1;
     int pos ;
+    pos =-1;
     do 
     {
         mid =( lower + upper ) / 2;
@@ -32,18 +33,20 @@ void main (void)
         }
         else if (key > arr[mid])
         {
-              lower = mid;
+              lower = mid+1;
         }
         else 
         {
-                upper = mid ;
+                upper = mid-1 ;
         }
 
 
     }while (lower < upper );
     printf("=========================================\n");
-
-    printf (" %d is in the position of %d in the list you entered \n" ,key,pos+1);
+   if (pos == -1)
+   printf (" %d is not found  \n" ,key);
+   else
+   printf (" %d is in the position of %d in the list you entered \n" ,key,pos+1);
 
     
 
