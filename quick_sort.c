@@ -1,97 +1,72 @@
 #include <stdio.h>
-int * git_greater(int array [],int v );
-int * qiuck_sort (int arr []);
-int * git_less(int array [],int v );
-int size =0 ;
+void quick_sort (int arr [],int length );
+void quick_sort_recurtion (int arr [] ,int low ,int high );
+void swap(int * x, int *y );
+int partition (int array[] , int low , int high );
+
 void main (void)
 {
-
-    printf("======================== quick sort algorithm ========================\n");
-    printf("======================================================================\n");
-    
-    printf("enter the legnth of the list : ");
-    scanf("%d",&size);
-    int data [size];
+    int n;
+    int data [100];
     int i ;
-
-    for (i=0 ; i<size ;i++)
+    printf("enter the size of array : " );
+    scanf("%d",&n);
+    printf("===============================================================\n" );
+    for (i=0;i<n;i++)
     {
-        printf ("value [%d] = ",i+1);
-        scanf ("%d",& data[i]);
+        printf("value [%d] = ",i+1);
+        scanf("%d",&data[i]);
+
     }
-    printf("=========================================\n");
+    printf("=========================================================================================\n" );
+    printf("================================== after quick sorting ==================================\n" );
 
-
-
-    qiuck_sort(data);
-
-     for (i=0 ; i<size ;i++)
+    quick_sort(data,n);
+    for (i=0;i<n;i++)
     {
-        printf ("value [%d] = %d",i+1 , data[i]);
-        
-    }
-    printf("=========================================\n");
+        printf("value [%d] = %d\n",i+1,data[i]);
 
+
+    }
 
 }
-
-int * qiuck_sort (int arr [])
+void quick_sort (int arr [],int length )
 {
-    int * less;
-    int * greater ;
-    int n=sizeof(arr)/sizeof(arr[0]);
-    if (n<2)
-    return arr;
-    else
-    {
-        int pivot;
-        pivot=arr[0];
-        less=git_less(arr,pivot);
-        greater=git_greater(arr,pivot);
-        return (qiuck_sort(less) +  pivot + (int)qiuck_sort(greater)) ;
-
-    }
-      
-
-
+    quick_sort_recurtion(arr,0,length-1);
 }
-int * git_less(int array [],int v )
+
+void quick_sort_recurtion (int arr [] ,int low ,int high )
 {
-    int i ;
-    int count =0;
-    for (i=0; i<size;i++)
+    if(low<high)
     {
-        if (array[i]<v) count++ ;
+    int pivot = partition(arr, low ,high);
+    quick_sort_recurtion(arr,low,pivot-1);
+    quick_sort_recurtion(arr, pivot+1,high);
     }
-    int less[count];
-    int index =0;
-    for (i=0; i<size;i++)
+}
+
+
+
+ void swap(int * x, int *y )
+ {
+    int temp = *x;
+    *x = *y;
+    *y = temp;
+ }
+
+int partition (int array[] , int low , int high )
+{
+    int pivot = array[high];
+    int i= low ;
+    int j;
+    for (j=low ;j<high;j++)
     {
-        if (array[i]<v) 
+        if(array[j]<=pivot)
         {
-            less[index]=array[i];
-            index++;
+            swap(&array[i],&array[j]);
+            i++;
         }
     }
-    return less;
-}
-int * git_greater(int array [],int v )
-{
-    int i ;
-    int count =0;
-    for (i=0; i<size;i++)
-    {
-        if (array[i]>v) count++ ;
-    }
-    int greater[count];
-    int index =0;
-    for (i=0; i<size;i++)
-    {
-        if (array[i]>v) 
-        {
-            greater[index]=array[i];
-            index++;
-        }
-    }
-    return greater ;
+    swap(&array[i],&array[high]);
+    return i;
 }
